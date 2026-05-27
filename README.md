@@ -1,4 +1,4 @@
-# CivicLens – AI Powered Civic Issue Reporting Platform 🏙️📸🤖
+# NammaOor Fix – AI Powered Civic Issue Reporting Platform 🏙️📸🤖
 
 https://namma-oor-fix.vercel.app/
 
