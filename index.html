@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicLens AI | Connected Civic Tech Platform</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyberDark: '#101620',
+            glassCard: 'rgba(22, 30, 49, 0.75)',
+            cyberBorder: 'rgba(255, 255, 255, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Leaflet CSS for Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom CSS stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-cyberDark text-gray-100 min-h-screen relative">
+
+  <!-- ==================== DYNAMIC LIVE PORTAL GATEWAY ==================== -->
+  <div id="portal-gateway" class="block">
+    <!-- Gradient Background Highlights -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600 rounded-full filter blur-[150px] opacity-20 pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600 rounded-full filter blur-[150px] opacity-20 pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 py-12 flex flex-col items-center justify-center min-h-screen relative z-10">
+      
+      <!-- Tech Pitch Title -->
+      <div class="text-center mb-12">
+        <span class="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-4 inline-block float-element">
+          <i class="fa-solid fa-city mr-1.5"></i> Civic reporting for Coimbatore
+        </span>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 mt-2">
+          CivicLens <span class="text-cyber-gradient">AI</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
+          Report local issues, follow their status, and help municipal teams respond with clearer location and photo evidence.
+        </p>
+      </div>
+
+      <!-- Auth Selection Gate -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full mb-16">
+        
+        <!-- Portal Card A: Citizen Social Platform -->
+        <button onclick="enterPortal('citizen')" class="text-left glow-card-orange rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 group hover:-translate-y-2">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 bg-cyber-gradient rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-red-500/20">
+                <i class="fa-solid fa-mobile-screen-button text-white"></i>
+              </div>
+              <span class="text-xs text-red-400 font-mono tracking-widest uppercase bg-red-400/10 px-2.5 py-1 rounded-full border border-red-500/20">
+                For Citizens
+              </span>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 group-hover:text-red-400 transition-colors">Citizen Portal</h3>
+            <p class="text-sm text-gray-400 leading-relaxed mb-6">
+              Report potholes, water logging, garbage, streetlights, and other public issues with a photo, voice note, map pin, and community support.
+            </p>
+          </div>
+          <div class="flex items-center font-semibold text-red-400 group-hover:translate-x-1 transition-transform">
+            Open Citizen Portal <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+          </div>
+        </button>
+
+        <!-- Portal Card B: Government Analytics Command Center -->
+        <button onclick="enterPortal('government')" class="text-left glow-card-purple rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 group hover:-translate-y-2">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 bg-purple-gradient rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-purple-500/20">
+                <i class="fa-solid fa-chart-line text-white"></i>
+              </div>
+              <span class="text-xs text-purple-400 font-mono tracking-widest uppercase bg-purple-400/10 px-2.5 py-1 rounded-full border border-purple-500/20">
+                Enterprise Admin
+              </span>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 group-hover:text-purple-400 transition-colors">Municipal Command Center</h3>
+            <p class="text-sm text-gray-400 leading-relaxed mb-6">
+              Review incoming reports, filter by status and department, assign field teams, and verify completed work.
+            </p>
+          </div>
+          <div class="flex items-center font-semibold text-purple-400 group-hover:translate-x-1 transition-transform">
+            Open Official Dashboard <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+          </div>
+        </button>
+
+      </div>
+
+      <!-- Developer Info Banner -->
+      <button onclick="openAboutPage()" class="glassmorphism rounded-2xl p-6 max-w-4xl w-full flex flex-col sm:flex-row items-center justify-between border border-gray-800 gap-4 text-left transition-all duration-300 hover:border-blue-500/35 hover:bg-gray-800/40">
+        <div class="flex items-center gap-4 text-center sm:text-left">
+          <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-700 border-2 border-blue-500 flex items-center justify-center">
+            <i class="fa-solid fa-user-tie text-xl text-blue-400"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-200">Sugantharaj T</h4>
+            <p class="text-xs text-gray-400 font-mono">AI Student | Coimbatore, IN</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 bg-gray-800 rounded-full text-xs font-mono text-gray-400 border border-gray-700">
+            View project overview
+          </span>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ==================== PROJECT OVERVIEW PAGE ==================== -->
+  <div id="project-about-page" class="hidden min-h-screen bg-cyberDark">
+    <header class="w-full px-5 sm:px-8 py-5 border-b border-gray-800/80 bg-cyberDark/95 backdrop-blur-md sticky top-0 z-50">
+      <div class="max-w-5xl mx-auto flex items-center justify-between gap-4">
+        <button onclick="closeAboutPage()" class="text-xs text-gray-400 hover:text-white flex items-center gap-2 bg-gray-800/60 px-3 py-2 rounded-full border border-gray-700">
+          <i class="fa-solid fa-arrow-left"></i> Back to Hub
+        </button>
+        <span class="text-[10px] sm:text-xs font-mono text-gray-500 uppercase tracking-widest">Project overview</span>
+      </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
+      <section class="mb-12">
+        <p class="text-xs font-semibold uppercase tracking-widest text-red-300 mb-3">CivicLens AI</p>
+        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-100 mb-5">A civic issue reporting and resolution platform.</h2>
+        <p class="text-base sm:text-lg text-gray-400 leading-relaxed max-w-3xl">
+          CivicLens connects citizens and municipal officials in one simple workflow: citizens report public issues with photos and location, while officials review, assign, verify, and close the work from a command dashboard.
+        </p>
+      </section>
+
+      <section class="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 mb-12">
+        <div>
+          <h3 class="text-2xl font-bold text-gray-100 mb-3">About This Project</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            The goal is to reduce the gap between public complaints and municipal action. The citizen side focuses on fast reporting, clear evidence, and local support. The official side focuses on prioritization, dispatch, proof upload, and closure tracking.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="glassmorphism rounded-xl p-4 border border-gray-800/80">
+            <i class="fa-solid fa-camera text-red-300 mb-3"></i>
+            <h4 class="text-sm font-bold text-gray-100 mb-1">Report</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Citizens upload an issue photo, location, and short description.</p>
+          </div>
+          <div class="glassmorphism rounded-xl p-4 border border-gray-800/80">
+            <i class="fa-solid fa-list-check text-blue-300 mb-3"></i>
+            <h4 class="text-sm font-bold text-gray-100 mb-1">Act</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Officials sort complaints, assign workers, and monitor status.</p>
+          </div>
+          <div class="glassmorphism rounded-xl p-4 border border-gray-800/80">
+            <i class="fa-solid fa-circle-check text-emerald-300 mb-3"></i>
+            <h4 class="text-sm font-bold text-gray-100 mb-1">Verify</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Completion photos are uploaded and the ticket is closed.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 class="text-2xl font-bold text-gray-100 mb-5">Tools Used</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="flex gap-4 p-4 rounded-xl border border-gray-800 bg-gray-900/35">
+            <i class="fa-brands fa-html5 text-orange-300 mt-1"></i>
+            <div>
+              <h4 class="text-sm font-bold text-gray-100">HTML, CSS, JavaScript</h4>
+              <p class="text-xs text-gray-500 mt-1">Builds the full interactive citizen and official portal experience.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 p-4 rounded-xl border border-gray-800 bg-gray-900/35">
+            <i class="fa-solid fa-wind text-sky-300 mt-1"></i>
+            <div>
+              <h4 class="text-sm font-bold text-gray-100">Tailwind CSS</h4>
+              <p class="text-xs text-gray-500 mt-1">Keeps layouts responsive and consistent across the two interfaces.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 p-4 rounded-xl border border-gray-800 bg-gray-900/35">
+            <i class="fa-solid fa-map-location-dot text-emerald-300 mt-1"></i>
+            <div>
+              <h4 class="text-sm font-bold text-gray-100">Leaflet Maps</h4>
+              <p class="text-xs text-gray-500 mt-1">Handles map pins, report locations, and municipal hotspot views.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 p-4 rounded-xl border border-gray-800 bg-gray-900/35">
+            <i class="fa-solid fa-server text-purple-300 mt-1"></i>
+            <div>
+              <h4 class="text-sm font-bold text-gray-100">FastAPI + SQLAlchemy</h4>
+              <p class="text-xs text-gray-500 mt-1">Planned backend stack for APIs, persistence, and production data flow.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+
+  <!-- ==================== CITIZEN APPLICATION (FULLSCREEN PORTAL) ==================== -->
+  <div id="citizen-portal" class="hidden min-h-screen flex flex-col bg-cyberDark">
+    
+    <!-- Top Portal Navigator Bar -->
+    <div class="w-full flex items-center justify-between px-4 sm:px-6 py-4 border-b border-gray-800/80 bg-cyberDark/95 backdrop-blur-md sticky top-0 z-50">
+      <button onclick="exitPortal()" class="text-xs text-gray-400 hover:text-white flex items-center gap-1 bg-gray-800/60 px-3 py-1.5 rounded-full border border-gray-700">
+        <i class="fa-solid fa-arrow-left"></i> Exit to Hub
+      </button>
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></span>
+        <span class="text-xs font-mono text-gray-400">Live persistence connected</span>
+      </div>
+    </div>
+
+    <!-- Fullscreen citizen app shell -->
+    <div class="smartphone-container">
+      <div class="smartphone-notch"></div>
+      
+      <!-- Citizen App Screen View -->
+      <div class="smartphone-screen flex flex-col bg-cyberDark" id="mobile-screen-content">
+        
+        <!-- A. SPLASH SCREEN (Simulated mobile launch) -->
+        <div id="citizen-splash" class="absolute inset-0 z-50 bg-cyberDark flex flex-col items-center justify-center transition-all duration-700">
+          <div class="w-20 h-20 bg-cyber-gradient rounded-3xl flex items-center justify-center text-4xl shadow-xl shadow-red-500/25 mb-4 float-element">
+            <i class="fa-solid fa-camera-retro text-white"></i>
+          </div>
+          <h2 class="text-3xl font-extrabold tracking-wide mb-1">NammaFix</h2>
+          <p class="text-xs font-mono text-gray-500 tracking-wider">COIMBATORE CIVIC REPORTING</p>
+          <div class="mt-8 flex gap-1">
+            <span class="w-2 h-2 bg-red-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
+            <span class="w-2 h-2 bg-red-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+            <span class="w-2 h-2 bg-red-500 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+          </div>
+        </div>
+
+        <!-- B. CITIZEN LOGIN SCREEN -->
+        <div id="citizen-login" class="hidden p-6 flex-1 flex flex-col justify-between">
+          <div class="mt-8">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="h-1 w-8 bg-red-500 rounded-full"></span>
+              <span class="text-xs font-mono text-red-400 uppercase tracking-widest font-semibold">Citizen Access</span>
+            </div>
+            <h3 class="text-3xl font-extrabold mb-3">Verified Citizen Access</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Login to report public issues, follow updates, and support nearby complaints in Coimbatore.
+            </p>
+          </div>
+
+          <!-- Mock Social Authentication Buttons -->
+          <div class="space-y-4 my-8">
+            <button onclick="citizenAuth('google')" class="w-full py-3.5 px-4 bg-white text-gray-900 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-white/5 active:scale-[0.98] transition-transform">
+              <i class="fa-brands fa-google text-lg"></i> Sign In with Google
+            </button>
+            <button onclick="citizenAuth('anonymous')" class="w-full py-3.5 px-4 bg-gray-800 hover:bg-gray-700/80 text-gray-200 rounded-2xl font-semibold flex items-center justify-center gap-3 border border-gray-700 active:scale-[0.98] transition-transform">
+              <i class="fa-solid fa-user-secret"></i> Report Anonymously
+            </button>
+          </div>
+
+          <div class="text-center">
+            <p class="text-xs text-gray-500">By logging in, you agree to report verified public issues. Fake/Spam submissions automatically lower your reputation status.</p>
+          </div>
+        </div>
+
+        <!-- C. HOME SCREEN / FEED (Twitter-like dynamic civic feed) -->
+        <div id="citizen-home" class="hidden flex-1 flex flex-col">
+          <!-- App Header -->
+          <div class="sticky top-0 z-40 bg-cyberDark/90 backdrop-blur-md px-4 py-4 flex items-center justify-between border-b border-gray-800/80">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-cyber-gradient flex items-center justify-center text-sm font-bold shadow-md shadow-red-500/10">N</div>
+              <h4 class="font-extrabold text-lg text-gray-100 tracking-wide">NammaFix</h4>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1 bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full text-xs font-bold border border-yellow-500/20">
+                <i class="fa-solid fa-trophy text-[10px]"></i> <span id="cit-repute-score">320</span>
+              </div>
+              <button onclick="citizenLogout()" class="text-gray-400 hover:text-red-400 text-sm">
+                <i class="fa-solid fa-right-from-bracket"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Sticky Segment Filter Tabs -->
+          <div class="flex border-b border-gray-800 bg-cyberDark/60 sticky top-[57px] z-30">
+            <button id="tab-trending" onclick="filterCitizenFeed('trending')" class="flex-1 py-3 text-xs font-bold text-red-400 border-b-2 border-red-500">Trending</button>
+            <button id="tab-recent" onclick="filterCitizenFeed('recent')" class="flex-1 py-3 text-xs font-bold text-gray-400 hover:text-white transition-colors">Recent</button>
+            <button id="tab-my" onclick="filterCitizenFeed('my')" class="flex-1 py-3 text-xs font-bold text-gray-400 hover:text-white transition-colors">My Submissions</button>
+          </div>
+
+          <!-- Feed Container scroll -->
+          <div class="p-4 space-y-4 flex-1 overflow-y-auto" id="citizen-feed-container">
+            <!-- Complaint Feed Cards injected dynamically -->
+          </div>
+        </div>
+
+        <!-- D. REPORT AN ISSUE PAGE -->
+        <div id="citizen-report" class="hidden flex-1 flex flex-col p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-2xl font-bold">New Complaint</h3>
+            <button onclick="setView('home')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+          </div>
+
+          <div class="space-y-4 flex-1 overflow-y-auto pr-1">
+            
+            <!-- Issue image selector / camera mock -->
+            <div>
+              <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Photo</label>
+              
+              <!-- Sim Selector layout -->
+              <div id="image-upload-box" onclick="openPhotoPicker()" class="h-44 rounded-2xl bg-gray-800/40 border-2 border-dashed border-gray-700 flex flex-col items-center justify-center relative overflow-hidden group cursor-pointer">
+                <div class="text-center p-4 group-hover:scale-105 transition-transform" id="upload-prompt">
+                  <i class="fa-solid fa-camera-retro text-3xl text-gray-500 mb-2"></i>
+                  <p class="text-xs text-gray-300 font-semibold">Add a photo</p>
+                  <p class="text-[10px] text-gray-500 mt-1">Click to upload from your device</p>
+                </div>
+                <img id="preview-image" src="" alt="preview" class="hidden w-full h-full object-cover">
+                <button id="clear-image-btn" onclick="clearSelectedImage(event)" class="hidden absolute top-2.5 right-2.5 bg-black/70 hover:bg-black w-8 h-8 rounded-full flex items-center justify-center text-white"><i class="fa-solid fa-trash-can text-xs"></i></button>
+              </div>
+              <input type="file" id="photo-file-input" accept="image/*" capture="environment" class="hidden" onchange="handlePhotoUpload(event)">
+
+              <!-- Issue type shortcuts -->
+              <div class="mt-2.5 flex items-center gap-2 overflow-x-auto pb-1.5">
+                <button onclick="selectIssueType('pothole')" class="flex-shrink-0 px-3 py-1 bg-gray-800 rounded-full text-[10px] font-semibold text-gray-300 border border-gray-700">Pothole</button>
+                <button onclick="selectIssueType('garbage')" class="flex-shrink-0 px-3 py-1 bg-gray-800 rounded-full text-[10px] font-semibold text-gray-300 border border-gray-700">Garbage</button>
+                <button onclick="selectIssueType('flooding')" class="flex-shrink-0 px-3 py-1 bg-gray-800 rounded-full text-[10px] font-semibold text-gray-300 border border-gray-700">Flooding</button>
+                <button onclick="selectIssueType('streetlight')" class="flex-shrink-0 px-3 py-1 bg-gray-800 rounded-full text-[10px] font-semibold text-gray-300 border border-gray-700">Streetlight</button>
+              </div>
+            </div>
+
+            <!-- Issue Title -->
+            <div>
+              <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Issue Title</label>
+              <input type="text" id="report-title" placeholder="Briefly what is wrong (e.g. Deep pothole)" class="w-full bg-gray-800/80 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-100 focus:outline-none focus:border-red-500">
+            </div>
+
+            <!-- Descriptive elements -->
+            <div>
+              <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Description & Directions</label>
+              <textarea id="report-desc" rows="3" placeholder="Tell us landmarks or directions..." class="w-full bg-gray-800/80 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-100 focus:outline-none focus:border-red-500"></textarea>
+            </div>
+
+            <!-- Speech reporting button -->
+            <div class="flex items-center justify-between bg-gray-800/30 p-3 rounded-2xl border border-gray-800">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-microphone text-red-400 animate-pulse" id="mic-icon-pulse" style="display:none"></i>
+                <i class="fa-solid fa-microphone-slash text-gray-500" id="mic-icon-idle"></i>
+                <div>
+                  <h5 class="text-xs font-bold text-gray-300">Voice reporting</h5>
+                  <p class="text-[9px] text-gray-500" id="stt-status">Tap microphone and speak details</p>
+                </div>
+              </div>
+              <button onclick="toggleVoiceReporting()" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 active:scale-95 transition-transform">
+                <i class="fa-solid fa-microphone text-red-500" id="stt-btn-icon"></i>
+              </button>
+            </div>
+
+            <!-- GPS / Map Selection -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Location</label>
+                <span class="text-[9px] text-red-400 font-semibold" id="coords-text">Waiting for location</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 mb-2">
+                <input type="text" id="manual-location" placeholder="Type street, landmark, or area" class="w-full bg-gray-800/80 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-100 focus:outline-none focus:border-red-500">
+                <button onclick="useManualLocation()" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-xs font-bold rounded-xl border border-gray-700 text-gray-200">
+                  Use typed location
+                </button>
+              </div>
+              <button onclick="requestCitizenLocation()" class="w-full mb-2 py-2.5 bg-red-500/10 hover:bg-red-500/15 text-red-300 rounded-xl text-xs font-bold border border-red-500/20">
+                <i class="fa-solid fa-location-crosshairs mr-1.5"></i> Use my current location
+              </button>
+              <div class="h-32 bg-gray-800 rounded-xl overflow-hidden relative" id="cit-map-container">
+                <!-- Geolocation map container -->
+              </div>
+              <p class="text-[10px] text-gray-500 mt-1.5">Drag the pin to adjust the exact spot before submitting.</p>
+            </div>
+
+          </div>
+
+          <button onclick="submitIssue()" class="w-full py-3.5 bg-cyber-gradient text-white rounded-2xl font-bold mt-4 shadow-lg shadow-red-500/25 active:scale-98 transition-transform">
+            Submit report
+          </button>
+        </div>
+
+        <!-- E. ISSUE DETAILS PAGE (With Before/After comparisons) -->
+        <div id="citizen-detail" class="hidden flex-1 flex flex-col p-5">
+          <div class="flex items-center justify-between mb-4">
+            <button onclick="setView('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+              <i class="fa-solid fa-chevron-left"></i> Feed
+            </button>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full border border-gray-800 text-gray-400 bg-gray-800/40" id="detail-ticket-id">ID: 001</span>
+          </div>
+
+          <div class="flex-1 overflow-y-auto space-y-4 pr-1" id="detail-container">
+            <!-- Details loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- BOTTOM MOBILE NAV TAB BAR -->
+        <div class="citizen-bottom-nav fixed bottom-0 inset-x-0 bg-cyberDark/95 backdrop-blur-md border-t border-gray-800 py-2.5 px-6 flex items-center justify-between z-[999]">
+          <button onclick="setView('home')" class="flex flex-col items-center gap-1 text-gray-500" id="nav-btn-home">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[9px] font-semibold">Feed</span>
+          </button>
+          <button onclick="setView('report')" class="w-12 h-12 bg-cyber-gradient text-white rounded-full flex items-center justify-center -translate-y-5 shadow-lg shadow-red-500/30 active:scale-95 transition-transform">
+            <i class="fa-solid fa-plus text-lg"></i>
+          </button>
+          <button onclick="toggleAlertsList()" class="flex flex-col items-center gap-1 text-gray-500 relative" id="nav-btn-alerts">
+            <i class="fa-solid fa-bell text-lg"></i>
+            <span class="text-[9px] font-semibold">Alerts</span>
+            <span class="absolute top-0 right-1 w-2 h-2 bg-red-500 rounded-full" id="cit-alert-badge" style="display:none"></span>
+          </button>
+        </div>
+
+        <!-- SIMULATED CAMERA DIALOG (AI YOLO Scanning overlay) -->
+        <div id="ai-scanning-overlay" class="absolute inset-0 bg-black/90 z-50 hidden flex flex-col items-center justify-center p-6 text-center">
+          <div class="relative w-64 h-64 border-2 border-red-500/50 rounded-2xl overflow-hidden mb-6 flex items-center justify-center">
+            <img id="scanning-img" src="" alt="scanning" class="w-full h-full object-cover">
+            
+            <!-- Scanning Laser Line -->
+            <div class="absolute inset-x-0 h-1 bg-red-500 shadow-lg shadow-red-500/50 animate-pulse" id="scan-line" style="top: 0%"></div>
+            
+            <!-- AI detected boxes -->
+            <div id="ai-bbox" class="absolute border-2 border-green-500 bg-green-500/20 text-white font-mono text-[9px] font-bold p-1 rounded transition-all duration-300" style="display:none">
+              <span id="ai-class-lbl">POTHOLE 92%</span>
+            </div>
+          </div>
+          
+          <h4 class="text-xl font-bold mb-2">Checking report...</h4>
+          <p class="text-xs text-gray-400 max-w-xs mb-6 leading-relaxed">We are preparing the complaint, checking nearby reports, and routing it to the right team.</p>
+          
+          <!-- Seeding stats logs -->
+          <div class="w-full max-w-xs bg-gray-900 border border-gray-800 rounded-xl p-3 text-left font-mono text-[10px] text-green-400 space-y-1">
+            <div id="log-step-1">Checking photo...</div>
+            <div id="log-step-2" class="opacity-30">Reading issue details...</div>
+            <div id="log-step-3" class="opacity-30">Checking nearby reports...</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== GOVERNMENT ADMIN COMMAND BOARD (ENTERPRISE) ==================== -->
+  <div id="government-portal" class="hidden min-h-screen flex flex-col bg-[#080b13]">
+    
+    <!-- Top Command Header -->
+    <header class="bg-[#0e1422] border-b border-[#1f2d48] py-4 px-6 flex items-center justify-between sticky top-0 z-40">
+      <div class="flex items-center gap-3">
+        <button onclick="exitPortal()" class="text-gray-400 hover:text-white mr-2 bg-gray-800/80 w-8 h-8 rounded-full flex items-center justify-center border border-gray-700">
+          <i class="fa-solid fa-chevron-left text-xs"></i>
+        </button>
+        <div class="w-10 h-10 bg-purple-gradient rounded-xl flex items-center justify-center text-xl shadow-lg shadow-purple-500/10">
+          <i class="fa-solid fa-tower-broadcast text-white"></i>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold tracking-tight flex items-center gap-2">
+            CivicLens AI Command <span class="px-2 py-0.5 rounded text-[10px] bg-red-500/10 text-red-400 border border-red-500/20 font-bold uppercase animate-pulse">Live</span>
+          </h2>
+          <p class="text-xs text-gray-400">Coimbatore Municipal Corporation (CMC) Municipal Administration Portal</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <!-- Date -->
+        <span class="text-xs font-mono text-gray-400 bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-800" id="gov-clock">2026-05-26 21:15</span>
+        
+        <!-- Officer Badge info -->
+        <div class="flex items-center gap-3">
+          <div class="text-right hidden sm:block">
+            <h5 class="text-sm font-bold text-gray-200">Dr. A. Rajesh, IAS</h5>
+            <p class="text-[10px] text-purple-400 font-semibold font-mono">Principal Commissioner</p>
+          </div>
+          <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-800 border-2 border-purple-500">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop" alt="avatar" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+      
+      <!-- LEFT BAR: Advanced Filters, Summary, Queue, Hotspots map -->
+      <div class="w-full lg:w-[480px] border-r border-[#1f2d48] bg-[#0c101c] overflow-y-auto flex flex-col">
+        
+        <!-- Section A: Zonal Summary Alert -->
+        <div class="p-5 border-b border-[#1f2d48] bg-purple-500/5">
+          <div class="flex items-center gap-2 text-purple-400 mb-2">
+            <i class="fa-solid fa-microchip-ai text-sm"></i>
+            <span class="text-xs font-bold font-mono uppercase tracking-wider">Daily field summary</span>
+          </div>
+          <p class="text-xs text-gray-400 leading-relaxed font-light" id="ai-daily-summary-txt">
+            Detected 4 new complaints across Coimbatore region today. Road defects are clustering heavy near the Gandhipuram corridor. Automated dispatch is routing works based on severity and supporting citizen me-too counts.
+          </p>
+        </div>
+
+        <!-- Section B: Category & Status Filters -->
+        <div class="p-5 border-b border-[#1f2d48] space-y-4">
+          <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5"><i class="fa-solid fa-filter mr-1"></i> Advanced Complaint Filters</h4>
+          
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Issue Category</label>
+              <select id="gov-filter-category" onchange="filterGovDashboard()" class="w-full bg-[#141a29] border border-[#1f2d48] rounded-lg px-3 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-purple-500">
+                <option value="all">All Categories</option>
+                <option value="pothole">Potholes</option>
+                <option value="water_stagnation">Water Stagnation</option>
+                <option value="garbage_dumping">Garbage Dumping</option>
+                <option value="broken_streetlight">Broken Light</option>
+                <option value="drainage_blockage">Drainage Blockage</option>
+                <option value="damaged_road">Damaged Roads</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Workflow Status</label>
+              <select id="gov-filter-status" onchange="filterGovDashboard()" class="w-full bg-[#141a29] border border-[#1f2d48] rounded-lg px-3 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-purple-500">
+                <option value="all">All Statuses</option>
+                <option value="reported">Reported</option>
+                <option value="assigned">Assigned</option>
+                <option value="in_progress">In Progress</option>
+                <option value="resolved">Resolved</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section C: Priority Dispatch Queue -->
+        <div class="p-5 flex-1 flex flex-col min-h-[350px]">
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-list-ol mr-1"></i> Priority Queue</h4>
+            <span class="text-[10px] text-gray-500 font-mono" id="gov-queue-count">Showing 4 complaints</span>
+          </div>
+
+          <!-- Queue List scroll -->
+          <div class="space-y-3 flex-1 overflow-y-auto pr-1" id="gov-priority-queue">
+            <!-- Queued complaints list injected dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- RIGHT PANE: Map and interactive workflow details -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        
+        <!-- Top Half: Large interactive city heatmap -->
+        <div class="h-[380px] lg:h-[450px] relative bg-[#090d16] border-b border-[#1f2d48]">
+          <!-- Leaflet dynamic map -->
+          <div class="w-full h-full" id="gov-map-element"></div>
+          
+          <!-- Heatmap legends overlay -->
+          <div class="absolute bottom-4 right-4 bg-[#0d1322] border border-[#1f2d48] p-3 rounded-xl z-[1000] text-[10px] space-y-2 max-w-[180px] shadow-2xl shadow-black/60">
+            <h5 class="font-bold text-gray-300 border-b border-[#1f2d48] pb-1">Hotspot map</h5>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-red-500 shadow-lg shadow-red-500/25"></span> Potholes & Cracks</div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/25"></span> Garbage Dumps</div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-lg shadow-blue-500/25"></span> Drainage & Floods</div>
+          </div>
+        </div>
+
+        <!-- Bottom Half: Selected Ticket Details & Verification Panel -->
+        <div class="flex-grow p-6 bg-[#090d16] overflow-y-auto">
+          <div id="gov-no-selection" class="h-full flex flex-col items-center justify-center text-center py-8">
+            <i class="fa-solid fa-network-wired text-4xl text-gray-600 mb-3 float-element"></i>
+            <h4 class="text-lg font-bold text-gray-400">No Complaint Selected</h4>
+            <p class="text-xs text-gray-500 max-w-sm mt-1">Select an active issue from the priority queue or click a map pin to start resolving.</p>
+          </div>
+
+          <!-- Active Resolver Workspace -->
+          <div id="gov-resolver-workspace" class="hidden space-y-6">
+            <!-- Header bar info -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#1f2d48] pb-4">
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span id="gov-lbl-emerg" class="px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/25">EMERGENCY</span>
+                  <span id="gov-lbl-category" class="px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/25">POTHOLE</span>
+                  <span id="gov-lbl-ticket" class="text-xs font-mono text-gray-400">TICKET #1002</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-100 mt-1.5" id="gov-txt-title">Pothole Crater at Gandhipuram Flyover</h3>
+                <p class="text-xs text-gray-400 flex items-center gap-1.5 mt-1">
+                  <i class="fa-solid fa-location-dot text-red-400"></i> <span id="gov-txt-address">Avinashi Road, Gandhipuram, Coimbatore</span>
+                </p>
+              </div>
+
+              <!-- State dispatch controls -->
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-gray-400 font-mono">STATUS:</span>
+                <span id="gov-badge-status" class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide bg-blue-500/15 text-blue-400 border border-blue-500/20">REPORTED</span>
+              </div>
+            </div>
+
+            <!-- Details Body Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              <!-- Card 1: Citizen Image & Report -->
+              <div class="glassmorphism rounded-2xl p-5 border border-gray-800/80">
+                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Citizen Report details</h4>
+                <div class="h-44 rounded-xl overflow-hidden mb-3 relative bg-gray-900 border border-gray-800">
+                  <img id="gov-img-before" src="" alt="before" class="w-full h-full object-cover">
+                  <div id="gov-img-before-fallback" class="hidden w-full h-full flex flex-col items-center justify-center bg-gray-900 text-gray-500">
+                    <i class="fa-solid fa-image text-2xl mb-2"></i>
+                    <span class="text-[10px] font-bold uppercase tracking-wider">No citizen photo uploaded</span>
+                  </div>
+                  <span class="absolute bottom-2.5 left-2.5 px-2 py-0.5 bg-black/60 rounded text-[9px] uppercase tracking-widest font-bold">Before Image</span>
+                </div>
+                <p class="text-xs text-gray-300 leading-relaxed italic" id="gov-txt-desc">"Crater causing slow speeds."</p>
+                <div class="mt-4 pt-4 border-t border-gray-800 flex justify-between items-center text-xs">
+                  <span class="text-gray-400">Reputed Citizen:</span>
+                  <span class="font-semibold text-gray-200" id="gov-txt-reporter">Sugantharaj T</span>
+                </div>
+              </div>
+
+              <!-- Card 2: Routing & Priority Statistics -->
+              <div class="glassmorphism rounded-2xl p-5 border border-gray-800/80 flex flex-col justify-between">
+                <div>
+                  <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Report routing details</h4>
+                  
+                  <div class="space-y-3.5">
+                    <div class="flex justify-between items-center text-xs">
+                      <span class="text-gray-400">Issue severity:</span>
+                      <span class="font-bold text-red-400" id="gov-stat-severity">9 / 10</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-1.5">
+                      <div class="bg-red-500 h-1.5 rounded-full" id="gov-bar-severity" style="width: 90%"></div>
+                    </div>
+
+                    <div class="flex justify-between items-center text-xs pt-2">
+                      <span class="text-gray-400">Affected me-too:</span>
+                      <span class="font-bold text-emerald-400" id="gov-stat-votes">4 citizens</span>
+                    </div>
+                    
+                    <div class="flex justify-between items-center text-xs pt-2">
+                      <span class="text-gray-400">Routed Department:</span>
+                      <span class="font-semibold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/15" id="gov-stat-dept">Highways</span>
+                    </div>
+
+                    <div class="flex justify-between items-center text-xs pt-2">
+                      <span class="text-gray-400">Priority score:</span>
+                      <span class="font-extrabold text-purple-400" id="gov-stat-priority">185 Score</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-gray-800">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-gray-400">Nearby duplicate found:</span>
+                    <span class="font-bold text-gray-200" id="gov-stat-duplicate">No overlap</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 3: Action Dispatch Portal -->
+              <div class="glow-card-purple rounded-2xl p-5 border border-purple-500/20">
+                <h4 class="text-xs font-bold text-purple-300 uppercase tracking-widest mb-3">Resolve Work Dispatch</h4>
+                
+                <div class="space-y-4">
+                  <!-- Dispatch worker inputs -->
+                  <div id="dispatch-form" class="block">
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Assign field staff</label>
+                    <select id="worker-dispatch" class="w-full bg-[#0c101c] border border-gray-800 rounded-lg px-3 py-2 text-xs text-gray-300 focus:outline-none focus:border-purple-500">
+                      <option value="AE-Road-01">AE R. Karthik (Road Division)</option>
+                      <option value="AE-Sanit-12">Supervisor M. Salim (Sanitation)</option>
+                      <option value="AE-Drain-44">Engineer S. Ramesh (Storm Drainage)</option>
+                    </select>
+
+                    <button onclick="dispatchWorker()" class="w-full py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold mt-3 active:scale-95 transition-transform">
+                      Dispatch Inspector Crew
+                    </button>
+                  </div>
+
+                  <!-- Resolution Proof Upload -->
+                  <div id="resolution-proof-form" class="hidden">
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Resolution Proof Image</label>
+                    <div id="proof-upload-box" onclick="openProofPhotoPicker()" class="h-24 bg-gray-900 border border-dashed border-gray-700 rounded-lg flex flex-col items-center justify-center cursor-pointer relative overflow-hidden">
+                      <div class="text-center p-2" id="proof-prompt">
+                        <i class="fa-solid fa-image-portrait text-lg text-gray-500"></i>
+                        <p class="text-[9px] text-gray-400 font-semibold mt-1">Upload completed work photo</p>
+                      </div>
+                      <img id="proof-preview" src="" alt="Officer uploaded completion proof" class="hidden w-full h-full object-cover">
+                    </div>
+                    <input type="file" id="proof-file-input" accept="image/*" capture="environment" class="hidden" onchange="handleProofPhotoUpload(event)">
+
+                    <button onclick="runAIResolutionVerification()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold mt-3 active:scale-95 transition-transform">
+                      Verify and close ticket
+                    </button>
+                  </div>
+
+                  <!-- Resolved confirmation message -->
+                  <div id="resolution-verified-msg" class="hidden text-center py-4 bg-emerald-500/10 rounded-xl border border-emerald-500/25">
+                    <i class="fa-solid fa-circle-check text-2xl text-emerald-400 mb-2"></i>
+                    <h5 class="text-xs font-bold text-emerald-300">Ticket Fully Verified & Closed</h5>
+                    <p class="text-[9px] text-gray-400 mt-1">Verified with 91% Structural Similarity.</p>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Simulated Voice/Alert notifications banner -->
+  <div id="custom-alert-banner" class="fixed top-6 right-6 z-[9999] bg-[#0f172a]/95 border-l-4 border-red-500 p-4 rounded-xl shadow-2xl max-w-sm flex items-start gap-3 border border-gray-800 transition-all duration-300 -translate-y-24 opacity-0">
+    <div class="w-8 h-8 rounded-lg bg-red-500/15 flex items-center justify-center text-red-500"><i class="fa-solid fa-circle-exclamation"></i></div>
+    <div class="flex-1">
+      <h5 class="text-xs font-bold text-red-400" id="custom-alert-title">Title</h5>
+      <p class="text-[10px] text-gray-400 leading-normal mt-0.5" id="custom-alert-desc">Description text</p>
+    </div>
+    <button onclick="dismissNotification()" class="text-gray-500 hover:text-white"><i class="fa-solid fa-xmark text-xs"></i></button>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Leaflet Map library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Chart JS library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Application persistent logic script -->
+  <script src="app.js"></script>
+</body>
+</html>

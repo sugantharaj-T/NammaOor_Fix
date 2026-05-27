@@ -1,0 +1,8 @@
+{
+  "version":2,
+  "routes":[
+    {"src":"/citizen","dest":"/citizen.html"},
+    {"src":"/government","dest":"/government.html"},
+    {"src":"/(.*)","dest":"/$1"}
+  ]
+}

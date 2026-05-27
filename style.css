@@ -1,0 +1,213 @@
+/* Custom CSS Tokens & Animations for CivicLens AI / NammaFix */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-outfit: 'Outfit', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: #101620;
+  color: #f3f4f6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Glow Borders */
+.glow-card-orange {
+  position: relative;
+  background: rgba(24, 31, 44, 0.82);
+  border: 1px solid rgba(255, 120, 92, 0.2);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(16px);
+}
+.glow-card-orange:hover {
+  border-color: rgba(255, 120, 92, 0.38);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+}
+
+.glow-card-emerald {
+  position: relative;
+  background: rgba(22, 30, 49, 0.7);
+  border: 1px solid rgba(56, 239, 125, 0.25);
+  box-shadow: 0 0 15px rgba(56, 239, 125, 0.05);
+  backdrop-filter: blur(16px);
+}
+.glow-card-emerald:hover {
+  border-color: rgba(56, 239, 125, 0.5);
+  box-shadow: 0 0 25px rgba(56, 239, 125, 0.15);
+}
+
+.glow-card-purple {
+  position: relative;
+  background: rgba(24, 31, 44, 0.82);
+  border: 1px solid rgba(178, 112, 176, 0.22);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(16px);
+}
+.glow-card-purple:hover {
+  border-color: rgba(178, 112, 176, 0.4);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+}
+
+.glow-card-blue {
+  position: relative;
+  background: rgba(22, 30, 49, 0.7);
+  border: 1px solid rgba(0, 198, 255, 0.25);
+  box-shadow: 0 0 15px rgba(0, 198, 255, 0.05);
+  backdrop-filter: blur(16px);
+}
+.glow-card-blue:hover {
+  border-color: rgba(0, 198, 255, 0.5);
+  box-shadow: 0 0 25px rgba(0, 198, 255, 0.15);
+}
+
+/* Glassmorphism Classes */
+.glassmorphism {
+  background: rgba(24, 31, 44, 0.72);
+  backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-modal {
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Cyber Gradients */
+.text-cyber-gradient {
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 50%, #8A2387 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-cyber-gradient {
+  background: linear-gradient(135deg, #e85d45 0%, #d94765 100%);
+}
+
+.bg-emerald-gradient {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.bg-blue-gradient {
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+}
+
+.bg-purple-gradient {
+  background: linear-gradient(135deg, #8A2387 0%, #E94057 50%, #F27121 100%);
+}
+
+/* Fullscreen Citizen Portal Shell */
+.smartphone-container {
+  width: 100%;
+  min-height: calc(100vh - 65px);
+  flex: 1;
+  background-color: #101620;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.smartphone-notch {
+  display: none;
+}
+
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 92px; /* space for fixed tab bar */
+  position: relative;
+}
+
+.citizen-bottom-nav {
+  left: 0;
+  right: 0;
+}
+
+/* Pulse radar for map hot spots */
+.map-pulse {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4b2b;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.map-pulse::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+
+/* Shimmer load effects */
+.shimmer {
+  background: linear-gradient(90deg, #161e31 25%, #232f4d 50%, #161e31 75%);
+  background-size: 200% 100%;
+  animation: shimmer-swipe 1.5s infinite;
+}
+
+@keyframes shimmer-swipe {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Float animations */
+.float-element {
+  animation: floating-bounce 3s ease-in-out infinite;
+}
+
+@keyframes floating-bounce {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Leaflet maps custom dark theme */
+.leaflet-container {
+  background: #0b0f19 !important;
+}
+.leaflet-tile {
+  filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) !important;
+}
+
+/* Custom switch animations */
+.transition-all-300 {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
