@@ -148,8 +148,8 @@ Local authorities can then view the issue on the dashboard and take action quick
 
 ---
 
-# Namma Oor Fix
+# NammaOor Fix
 
-© 2026 Namma Oor Fix. All Rights Reserved.
+© 2026 NammaOor Fix. All Rights Reserved.
 
 Developed by Suganth.
