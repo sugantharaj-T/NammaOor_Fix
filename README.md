@@ -148,6 +148,8 @@ Local authorities can then view the issue on the dashboard and take action quick
 
 ---
 
-# 👨‍💻 Developed By
+# Namma Oor Fix
 
-Suganth Raj – AI & Full Stack Developer passionate about building impactful smart-city solutions using AI and modern web technologies.
+© 2026 Namma Oor Fix. All Rights Reserved.
+
+Developed by Suganth.
