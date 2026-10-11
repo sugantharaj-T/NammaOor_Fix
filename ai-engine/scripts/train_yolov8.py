@@ -1,6 +1,6 @@
 """
 CivicLens AI / NammaFix - Custom YOLOv8 Fine-Tuning Pipeline
-Author: Suganth Srinivasan
+Author: Suganth 
 Role: AI Student Startup Founder & Architect
 
 This script demonstrates the production-level fine-tuning code used to train
