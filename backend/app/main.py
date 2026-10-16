@@ -10,8 +10,6 @@ from sqlalchemy.orm import sessionmaker, Session
 
 from .models.complaint import Base, User, Complaint, MeTooSupport, StatusUpdate, IssueCategory, ResolutionStatus
 from .services.ai_pipeline import AIPipelineService
-
-# Define SQLite database configuration in workspace
 DATABASE_URL = "sqlite:///./civiclens.db"
 
 engine = create_engine(
