@@ -1,4 +1,4 @@
-# NammaOor Fix – AI Powered Civic Issue Reporting Platform 🏙️📸🤖
+# NammaOor Fix – AI Powered Civic Issue Reporting Platform
 
 https://namma-oor-fix.vercel.app/
 
@@ -8,17 +8,17 @@ The platform bridges the gap between citizens and local authorities through real
 
 ---
 
-## 🚀 Features
+## Features
 
-### 📸 AI-Based Issue Detection
+### AI-Based Issue Detection
 
 Users can upload photos of civic problems, and the system automatically analyzes and categorizes issues using AI.
 
-### 📍 Real-Time Location Tracking
+### Real-Time Location Tracking
 
 Automatically captures the user’s current location using Geolocation APIs for accurate issue reporting.
 
-### 🧠 Smart Categorization
+### Smart Categorization
 
 Detects categories such as:
 
@@ -30,11 +30,11 @@ Detects categories such as:
 * Illegal dumping
 * Drainage overflow
 
-### 🗺️ Interactive Issue Mapping
+### Interactive Issue Mapping
 
 All reported issues are displayed on a live interactive map for better visibility and monitoring.
 
-### 📊 Admin Dashboard
+### Admin Dashboard
 
 Authorities can:
 
@@ -44,7 +44,7 @@ Authorities can:
 * Prioritize high-risk zones
 * Manage citizen reports efficiently
 
-### 🔔 Real-Time Status Updates
+### Real-Time Status Updates
 
 Citizens receive updates when:
 
@@ -52,11 +52,11 @@ Citizens receive updates when:
 * Work begins
 * Complaint gets resolved
 
-### 🌙 Modern Cyberpunk UI
+### Modern Cyberpunk UI
 
 Futuristic dark-themed interface with neon gradients, smooth animations, and responsive layouts.
 
-### 📱 Fully Responsive
+### Fully Responsive
 
 Optimized for:
 
@@ -66,7 +66,7 @@ Optimized for:
 
 ---
 
-# 💡 Example Use Case
+# Example Use Case
 
 Suppose a citizen notices:
 
@@ -86,7 +86,7 @@ Local authorities can then view the issue on the dashboard and take action quick
 
 ---
 
-# 🛠️ Technologies Used
+# Technologies Used
 
 ### Frontend
 
@@ -114,7 +114,7 @@ Local authorities can then view the issue on the dashboard and take action quick
 
 ---
 
-# 🎯 Objectives
+# Objectives
 
 * Improve communication between citizens and municipalities
 * Reduce manual complaint processes
@@ -124,19 +124,19 @@ Local authorities can then view the issue on the dashboard and take action quick
 
 ---
 
-# 🔥 Unique Features
+# Unique Features
 
-✅ AI image-based civic issue detection
-✅ Automatic geolocation tagging
-✅ Real-time complaint monitoring
-✅ Interactive analytics dashboard
-✅ Smart categorization system
-✅ Modern cyberpunk-inspired UI
-✅ Citizen-to-government digital bridge
+* AI image-based civic issue detection
+* Automatic geolocation tagging
+* Real-time complaint monitoring
+* Interactive analytics dashboard
+* Smart categorization system
+* Modern cyberpunk-inspired UI
+* Citizen-to-government digital bridge
 
 ---
 
-# 🌍 Future Enhancements
+# Future Enhancements
 
 * AI severity prediction
 * Voice-based complaint submission
